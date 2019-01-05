@@ -1,7 +1,7 @@
 import org.w3c.dom.CanvasRenderingContext2D
 import org.w3c.dom.HTMLCanvasElement
 import wylaga.Wylaga
-import wylaga.control.KeyboardController
+import wylaga.external.KeyboardAdapter
 import wylaga.view.display.CanvasPainter
 import wylaga.view.display.image.decodeToHTMLImageElement
 import kotlin.browser.document
@@ -18,7 +18,7 @@ fun main() {
 
     val wylaga = Wylaga(decodeToHTMLImageElement)
 
-    val controller = KeyboardController(wylaga)
+    val controller = KeyboardAdapter(wylaga)
 
     window.onkeyup = {controller.keyUp(it.keyCode)}
     window.onkeydown = {controller.keyDown(it.keyCode)}
