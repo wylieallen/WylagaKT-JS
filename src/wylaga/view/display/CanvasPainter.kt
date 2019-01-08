@@ -11,10 +11,19 @@ class CanvasPainter(private val ctx: CanvasRenderingContext2D) : Painter {
     override fun rotate(theta: Double) = ctx.rotate(theta)
 
 
-    override fun setFillColor(color: Color) { ctx.fillStyle = ktToCanvasColor(color) }
-        private fun ktToCanvasColor(color: Color) : String = "rgba(" + color.red + "," + color.green + "," + color.blue + "," + (color.alpha.toDouble() / 0xFF) + ")"
+    override fun setColor(color: Color) {
+        val canvasColor = ktToCanvasColor(color)
+        ctx.fillStyle = canvasColor
+        ctx.strokeStyle = canvasColor
+    }
 
+    private fun ktToCanvasColor(color: Color) : String = "rgba(" + color.red + "," + color.green + "," + color.blue + "," + (color.alpha.toDouble() / 0xFF) + ")"
 
+    override fun setFont(typeface: String, size: Int) {
+        ctx.font = "" + size + "pt " + typeface
+    }
+
+    override fun drawString(string: String) = ctx.fillText(string, 0.0, 0.0)
     override fun fillRect(x: Double, y: Double, width: Double, height: Double) = ctx.fillRect(x, y, width, height)
     fun drawImage(image: HTMLImageElement) = ctx.drawImage(image, 0.0, 0.0)
 }
