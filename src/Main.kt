@@ -11,7 +11,7 @@ fun main() {
     val canvas = document.getElementById("wylagaCanvas") as HTMLCanvasElement
     val canvasPainter = CanvasPainter(canvas.getContext("2d") as CanvasRenderingContext2D)
 
-    var now = timestamp()
+    var now = window.performance.now()
     var last = now
     val dt = 17
     var carry = 0.0
@@ -23,8 +23,8 @@ fun main() {
     window.onkeyup = {controller.keyUp(it.keyCode)}
     window.onkeydown = {controller.keyDown(it.keyCode)}
 
-    fun tick() {
-        now = timestamp()
+    fun tick(timestamp: Double) {
+        now = timestamp
         var delta = (now - last) + carry
         if( delta > 1000 ) { delta = 1000.0 }
 
@@ -36,10 +36,8 @@ fun main() {
 
         carry = delta
         last = now
-        window.requestAnimationFrame { tick() }
+        window.requestAnimationFrame(::tick)
     }
 
-    window.requestAnimationFrame { tick() }
+    window.requestAnimationFrame(::tick)
 }
-
-fun timestamp() : Double = window.performance.now()
