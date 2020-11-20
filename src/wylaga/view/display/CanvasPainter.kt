@@ -2,12 +2,13 @@ package wylaga.view.display
 
 import org.w3c.dom.CanvasRenderingContext2D
 import org.w3c.dom.HTMLImageElement
+import kotlin.math.floor
 
 class CanvasPainter(private val ctx: CanvasRenderingContext2D) : Painter {
 
     override fun push() = ctx.save()
     override fun pop() = ctx.restore()
-    override fun translate(x: Double, y: Double) = ctx.translate(x, y)
+    override fun translate(x: Double, y: Double) = ctx.translate(floor(x), floor(y))
     override fun rotate(theta: Double) = ctx.rotate(theta)
 
 
